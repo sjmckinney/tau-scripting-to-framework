@@ -3,6 +3,8 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Royale.PageObjects;
+using Framework.Models;
+using Framework.Services;
 
 namespace Royale.Tests
 {
@@ -43,19 +45,22 @@ namespace Royale.Tests
             Assert.That(iceSpirit.Displayed);
         }
 
-        [Test]
-        public void Ice_spirit_card_details_are_correct()
+        static string[] cardNames = {"Ice Spirit", "Mirror"};
+
+        [TestCaseSource("cardNames")]
+        public void Card_details_are_correct_on_card_details_page(string cardName)
         {
             //Arrange
             CardDetails cardDetails = new CardDetails(driver);
-            new CardsPage(driver).GetCardByName("Ice spirit").Click();
+            new CardsPage(driver).GetCardByName(cardName).Click();
             
             //Act
-            var (cardName, cardDescription) = cardDetails.GetCardName();
-            
+            var card = new InMemoryCardService().GetCardByName(cardName);
+            var cardOnPage = cardDetails.GetBaseCard();
+
             //Assert
-            Assert.AreEqual("Ice Spirit", cardName);
-            Assert.AreEqual("Spawns one lively little Ice Spirit to freeze a group of enemies. Stay frosty.", cardDescription);
+            Assert.AreEqual(card.CardName, cardOnPage.CardName);
+            Assert.AreEqual(card.CardDescription, cardOnPage.CardDescription);
         }
     }
 }

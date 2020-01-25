@@ -17,7 +17,7 @@ namespace Royale.PageObjects
             {
                 return name.Replace(" ", "-").ToLower();
             }
-            return name;
+            return name.ToLower();
         }
 
         public IWebElement GetCardByName(string name)
