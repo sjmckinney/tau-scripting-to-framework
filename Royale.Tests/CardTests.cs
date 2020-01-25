@@ -2,14 +2,13 @@ using System.IO;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using Royale.PageObjects;
 
 namespace Royale.Tests
 {
     public class CardTests
     {
         IWebDriver driver;
-        WebDriverWait wait;
         string StatsRoyaleUrl = "https://royaleapi.com";
 
         [SetUp]
@@ -19,8 +18,6 @@ namespace Royale.Tests
             //service.LogPath = "./chromedriver.log";
             //service.EnableVerboseLogging = true;
             driver = new ChromeDriver(service);
-            wait = new WebDriverWait(driver, new System.TimeSpan(30000));
-
         }
 
         [TearDown]
@@ -34,10 +31,11 @@ namespace Royale.Tests
         {
             //Arrange
             driver.Url = $"{StatsRoyaleUrl}/cards";
-            IWebElement el = wait.Until(driver => driver.FindElements(By.CssSelector("a.banner_continueBtn--3KNKl > span"))[1]);
-            el.Click();
+            ConsentBanner consentBanner = new ConsentBanner(driver);
+            Cards cards = new Cards(driver);
+            consentBanner.ContinueBtn().Click();
             //Act
-            var iceSpirit = driver.FindElement(By.CssSelector("a[href*='ice-spirit']"));
+            var iceSpirit = cards.IceSpriteCard;
             //Assert
             Assert.That(iceSpirit.Displayed);
         }
