@@ -1,45 +1,36 @@
-using System.IO;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using Royale.PageObjects;
-using Framework.Models;
 using Framework.Services;
+using Framework.WebDriver;
 
 namespace Royale.Tests
 {
     public class CardTests
     {
-        IWebDriver driver;
         string StatsRoyaleUrl = "https://royaleapi.com";
 
         [SetUp]
         public void BeforeEach()
         {
-            var service = ChromeDriverService.CreateDefaultService(Path.GetFullPath("../../../../_drivers"));
-            //service.LogPath = "./chromedriver.log";
-            //service.EnableVerboseLogging = true;
-            driver = new ChromeDriver(service);
-            driver.Url = $"{StatsRoyaleUrl}/cards";
+            Driver.Init();
+            BasePage.Init();
+            Driver.Current.Url = $"{StatsRoyaleUrl}/cards";
 
-            ConsentBanner consentBanner = new ConsentBanner(driver);
-            consentBanner.ContinueBtn().Click();
+            ConsentBanner consentBanner = new ConsentBanner(Driver.Current);
+            consentBanner.ContinueBtnClick();
         }
 
         [TearDown]
         public void AfterEach()
         {
-            driver.Quit();
+            Driver.Current.Quit();
         }
 
-        [Test]
+        [Test, Category("cards")]
         public void Ice_spirit_card_is_on_cards_page()
-        {
-            //Arrange
-            CardsPage cards = new CardsPage(driver);
-            
+        {       
             //Act
-            var iceSpirit = cards.GetCardByName("Ice spirit");
+            var iceSpirit = BasePage.Cards.GetCardByName("Ice Spirit");
 
             //Assert
             Assert.That(iceSpirit.Displayed);
@@ -47,16 +38,17 @@ namespace Royale.Tests
 
         static string[] cardNames = {"Ice Spirit", "Mirror"};
 
+        [Test, Category("Cards")]
         [TestCaseSource("cardNames")]
+        [Parallelizable(ParallelScope.Children)]
         public void Card_details_are_correct_on_card_details_page(string cardName)
         {
             //Arrange
-            CardDetails cardDetails = new CardDetails(driver);
-            new CardsPage(driver).GetCardByName(cardName).Click();
+            BasePage.Cards.GetCardByName(cardName).Click();
             
             //Act
             var card = new InMemoryCardService().GetCardByName(cardName);
-            var cardOnPage = cardDetails.GetBaseCard();
+            var cardOnPage = BasePage.CardDetails.GetBaseCard();
 
             //Assert
             Assert.AreEqual(card.CardName, cardOnPage.CardName);

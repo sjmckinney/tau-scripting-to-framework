@@ -38,7 +38,7 @@ Restores the dependencies and tools of a project.
 
 Clean and build the project
 
-[dotnet test](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test?tabs=netcore21) --filter=`filter-name`
+[dotnet test](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test?tabs=netcore21) `--filter testcategory=cards`
 
 .NET test driver used to execute unit tests with added filter clause
 

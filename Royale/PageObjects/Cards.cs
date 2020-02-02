@@ -1,14 +1,17 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Royale.PageObjects
 {
     public class CardsPage : BasePage
     {
         IWebDriver _driver;
+        WebDriverWait _wait;
 
-        public CardsPage(IWebDriver driver) : base(driver)
+        public CardsPage(IWebDriver driver)
         {
             _driver = driver;
+            _wait = new WebDriverWait(_driver, new System.TimeSpan(30000));
         }
 
         string FormatCardName(string name)
@@ -23,7 +26,7 @@ namespace Royale.PageObjects
         public IWebElement GetCardByName(string name)
         {
             name = FormatCardName(name);
-            return _driver.FindElement(By.CssSelector($"a[href*='{name}'] > img"));
+            return _wait.Until(_driver => _driver.FindElement(By.CssSelector($"a[href*='{name}'] > img")));
         }
     }
 }

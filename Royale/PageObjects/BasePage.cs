@@ -1,14 +1,24 @@
-using OpenQA.Selenium;
+using System;
+using Framework.WebDriver;
 
 namespace Royale.PageObjects
 {
     public class BasePage
     {
-        public readonly NavBar NavBar;
+        [ThreadStatic]
+        public static NavBar NavBar;
 
-        public BasePage(IWebDriver driver)
+        [ThreadStatic]
+        public static CardsPage Cards;
+
+        [ThreadStatic]
+        public static CardDetails CardDetails;
+
+        public static void Init()
         {
-            NavBar = new NavBar(driver);
+            NavBar = new NavBar(Driver.Current);
+            Cards = new CardsPage(Driver.Current);
+            CardDetails = new CardDetails(Driver.Current);
         }
     }
 }

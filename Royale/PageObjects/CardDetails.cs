@@ -9,7 +9,7 @@ namespace Royale.PageObjects
         IWebDriver _driver;
         WebDriverWait _wait;
 
-        public CardDetails(IWebDriver driver) : base(driver)
+        public CardDetails(IWebDriver driver)
         {
             _driver = driver;
             _wait = new WebDriverWait(_driver, new System.TimeSpan(3000));
