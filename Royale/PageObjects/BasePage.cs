@@ -16,9 +16,9 @@ namespace Royale.PageObjects
 
         public static void Init()
         {
-            NavBar = new NavBar(Driver.Current);
-            Cards = new CardsPage(Driver.Current);
-            CardDetails = new CardDetails(Driver.Current);
+            NavBar = new NavBar();
+            Cards = new CardsPage();
+            CardDetails = new CardDetails();
         }
     }
 }
