@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Framework.Models;
-using Framework.WebDriver;
+using Framework.Selenium;
 
 namespace Royale.PageObjects
 {
@@ -27,9 +27,9 @@ namespace Royale.PageObjects
 
         public (string cardName, string cardDescription) GetCardDetails()
         {
-            _wait.Until<bool>(Current => Current.Title.Contains("Analytics"));
-            var cardName = Driver.Current.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 h1")).Text.Trim();
-            var cardDescription = Driver.Current.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 p")).Text.Trim();
+            _wait.Until<bool>(Driver => Driver.Title.Contains("Analytics"));
+            var cardName = Driver.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 h1")).Text.Trim();
+            var cardDescription = Driver.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 p")).Text.Trim();
             return (cardName, cardDescription);
         }
     }

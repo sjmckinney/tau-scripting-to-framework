@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using Framework.WebDriver;
+using Framework.Selenium;
 
 namespace Royale.PageObjects
 {

@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using Royale.PageObjects;
 using Framework.Services;
-using Framework.WebDriver;
+using Framework.Selenium;
 
 namespace Royale.Tests
 {
@@ -23,7 +23,7 @@ namespace Royale.Tests
         [TearDown]
         public void AfterEach()
         {
-            Driver.Current.Quit();
+            Driver.Quit();
         }
 
         [Test, Category("cards")]

@@ -1,5 +1,5 @@
 using System;
-using Framework.WebDriver;
+using Framework.Selenium;
 
 namespace Royale.PageObjects
 {
