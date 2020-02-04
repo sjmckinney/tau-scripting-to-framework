@@ -13,19 +13,13 @@ namespace Royale.PageObjects
         {
             _wait = new WebDriverWait(Driver.Current, new System.TimeSpan(30000));
         }
-        public ReadOnlyCollection<IWebElement> BannerBtns => _wait.Until(Current => Current.FindElements(By.CssSelector("a.banner_continueBtn--3KNKl > span")));
-
-        public IWebElement ContinueBtn()
-        {
-            return BannerBtns[1];
-        }
+        public ReadOnlyCollection<IWebElement> BannerBtns => _wait.Until(Driver => Driver.FindElements(By.CssSelector("a.banner_continueBtn--3KNKl > span")));
 
         public void ContinueBtnClick()
         {
-            var btn = ContinueBtn();
-            _wait.Until(Current => btn.Enabled);
+            var btn = BannerBtns[1];
+            _wait.Until<bool>(Driver => btn.Enabled);
             btn.Click();
-            _wait.Until(Current => !btn.Displayed);
         }
     }
 }
