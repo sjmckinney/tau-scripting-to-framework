@@ -1,11 +1,14 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Framework.Selenium;
+using static NLog.LogManager;
 
 namespace Royale.PageObjects
 {
     public class CardsPage : BasePage
     {
+        private static readonly NLog.Logger logger = GetCurrentClassLogger();
+
         WebDriverWait _wait;
 
         public CardsPage()
@@ -30,6 +33,7 @@ namespace Royale.PageObjects
         public IWebElement GetCardByName(string name)
         {
             name = FormatCardName(name);
+            logger.Info($"Name of card is {name}");
             return _wait.Until(Current => Current.FindElement(By.CssSelector($"a[href*='{name}'] > img")));
         }
     }
