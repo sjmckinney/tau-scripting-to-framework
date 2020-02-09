@@ -17,7 +17,12 @@ namespace Royale.PageObjects
         {
             if(name.Contains(" "))
             {
-                return name.Replace(" ", "-").ToLower();
+                name = name.Replace(" ", "-");
+            }
+
+            if(name.Contains("."))
+            {
+                name = name.Replace(".", "");
             }
             return name.ToLower();
         }

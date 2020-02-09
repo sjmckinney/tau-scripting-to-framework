@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 using Royale.PageObjects;
 using Framework.Services;
 using Framework.Selenium;
+using Framework.Models;
 
 namespace Royale.Tests
 {
@@ -26,14 +28,17 @@ namespace Royale.Tests
             Driver.Quit();
         }
 
+        static IList<BaseCard> apiCards = new Framework.Services.ApiCardServices().GetAllCards();
+
         [Test, Category("cards")]
-        public void Ice_spirit_card_is_on_cards_page()
+        [TestCaseSource("apiCards")]
+        public void Card_is_displayed_on_cards_page(BaseCard baseCard)
         {       
             //Act
-            var iceSpirit = BasePage.Cards.GetCardByName("Ice Spirit");
+            var cardOnPage = BasePage.Cards.GetCardByName(baseCard.CardName);
 
             //Assert
-            Assert.That(iceSpirit.Displayed);
+            Assert.That(cardOnPage.Displayed);
         }
 
         static string[] cardNames = {"Ice Spirit", "Mirror"};
