@@ -32,6 +32,7 @@ namespace Royale.Tests
 
         [Test, Category("cards")]
         [TestCaseSource("apiCards")]
+        [Parallelizable(ParallelScope.Children)]
         public void Card_is_displayed_on_cards_page(BaseCard baseCard)
         {       
             //Act
@@ -43,7 +44,7 @@ namespace Royale.Tests
 
         static string[] cardNames = {"Ice Spirit", "Mirror"};
 
-        [Test, Category("Cards")]
+        [Test, Category("cards")]
         [TestCaseSource("cardNames")]
         [Parallelizable(ParallelScope.Children)]
         public void Card_details_are_correct_on_card_details_page(string cardName)

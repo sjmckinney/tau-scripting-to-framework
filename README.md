@@ -21,12 +21,15 @@ The Services directory contains the ```InMemoryCardService```. This class has th
 
 The ```InMemoryCardService``` class implements the ```ICardService``` interface. Any card service class that implements this interface can be configured to be used by the framework at run time so allowing for card details to come from static class files, a database or any other source.
 
+The ability to extend the framework can be seen with the addition of the ```ApiCardService```. This leverages a REST endpoint that returns a list of all the popular cards. Use is made of the ```RestSharp``` and the ```Newtonsoft``` packages to first create and send the request and then to deserialise the response into an instance of the ```BaseCard``` class for use in the tests. This second approach might render the name card classes in the Models directory and the ```InMemoryCardService``` obsolete but for the fact that endpoint response does not contain the 'description' attribute used in the Card Details tests.
+
 ## Making use of NUnit features
 
 Test runners, like NUnit, simplify the execution and organisation of tests and the reporting of test results.
 
 * Seperation of tests and data
 * Parallelisation
+* Control the number of Test Workers spawned by a test run
 
 ## dotnet commandline reference
 
@@ -41,5 +44,10 @@ Clean and build the project
 [dotnet test](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test?tabs=netcore21) `--filter testcategory=cards`
 
 .NET test driver used to execute unit tests with added filter clause
+
+Example of setting the number of Test Workers i.e. number of tests permitteed to run in parallel
+
+[dotnet test](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test?tabs=netcore21)
+`-- NUnit.NumberOfTestWorkers=4`
 
 [Link to markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
