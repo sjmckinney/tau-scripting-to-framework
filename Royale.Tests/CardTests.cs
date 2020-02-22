@@ -4,20 +4,25 @@ using Royale.PageObjects;
 using Framework.Services;
 using Framework.Selenium;
 using Framework.Models;
+using Framework;
 
 namespace Royale.Tests
 {
     public class CardTests
     {
-        string StatsRoyaleUrl = "https://royaleapi.com";
-
+        [OneTimeSetUp]
+        public void BeforeAll()
+        {
+            FW.SetConfig();
+        }
+        
         [SetUp]
         public void BeforeEach()
         {
             Driver.Init();
             BasePage.Init();
-            Driver.Current.Url = $"{StatsRoyaleUrl}/cards";
-
+            Driver.Current.Url = $"{FW.Config.Test.Url}/cards";
+            
             ConsentBanner consentBanner = new ConsentBanner(Driver.Current);
             consentBanner.ContinueBtnClick();
         }
