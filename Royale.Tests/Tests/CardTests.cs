@@ -1,38 +1,14 @@
 using System.Collections.Generic;
 using NUnit.Framework;
-using Royale.PageObjects;
 using Framework.Services;
-using Framework.Selenium;
 using Framework.Models;
-using Framework;
+using Royale.PageObjects;
+using Royale.Tests.Base;
 
 namespace Royale.Tests
 {
-    public class CardTests
+    public class CardTests : TestBase
     {
-        [OneTimeSetUp]
-        public void BeforeAll()
-        {
-            FW.SetConfig();
-        }
-        
-        [SetUp]
-        public void BeforeEach()
-        {
-            Driver.Init();
-            BasePage.Init();
-            Driver.Current.Url = $"{FW.Config.Test.Url}/cards";
-            
-            ConsentBanner consentBanner = new ConsentBanner(Driver.Current);
-            consentBanner.ContinueBtnClick();
-        }
-
-        [TearDown]
-        public void AfterEach()
-        {
-            Driver.Quit();
-        }
-
         static IList<BaseCard> apiCards = new Framework.Services.ApiCardServices().GetAllCards();
 
         [Test, Category("cards")]
@@ -47,9 +23,9 @@ namespace Royale.Tests
             Assert.That(cardOnPage.Displayed);
         }
 
-        static string[] cardNames = {"Ice Spirit", "Mirror"};
+        static string[] cardNames = {"Ice Spirit", "Mirror1"};
 
-        [Test, Category("cards")]
+        [Test, Category("cards1")]
         [TestCaseSource("cardNames")]
         [Parallelizable(ParallelScope.Children)]
         public void Card_details_are_correct_on_card_details_page(string cardName)

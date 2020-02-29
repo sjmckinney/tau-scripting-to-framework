@@ -28,8 +28,6 @@ namespace Framework.Services
                 throw new System.Exception($"The request failed with status code {response.StatusCode}");
             }
             var cards = JsonConvert.DeserializeObject<IList<BaseCard>>(response.Content);
-
-            logger.Info(cards.ToString());
             
             return cards;
         }

@@ -9,7 +9,7 @@ namespace Royale.PageObjects
     {
         WebDriverWait _wait;
 
-        public ConsentBanner(IWebDriver driver)
+        public ConsentBanner()
         {
             _wait = new WebDriverWait(Driver.Current, new System.TimeSpan(30000));
         }

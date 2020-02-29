@@ -1,10 +1,12 @@
 using System;
-using Framework.Selenium;
+using static NLog.LogManager;
 
 namespace Royale.PageObjects
 {
     public class BasePage
     {
+        private static readonly NLog.Logger logger = GetCurrentClassLogger();
+
         [ThreadStatic]
         public static NavBar NavBar;
 
@@ -19,6 +21,7 @@ namespace Royale.PageObjects
             NavBar = new NavBar();
             Cards = new CardsPage();
             CardDetails = new CardDetails();
+            logger.Info("Compeleted BasePage.Init()");
         }
     }
 }
