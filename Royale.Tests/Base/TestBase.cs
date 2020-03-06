@@ -51,6 +51,8 @@ namespace Royale.Tests.Base
             }
 
             Driver.Quit();
+
+            logger.Info($"Completed test teardown");
         }
     }
 }

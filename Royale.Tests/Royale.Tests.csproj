@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Royale\Royale.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Base\" />
+    <Folder Include="Tests\" />
+  </ItemGroup>
 </Project>
