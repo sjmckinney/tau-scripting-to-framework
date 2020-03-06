@@ -28,8 +28,8 @@ namespace Royale.PageObjects
         public (string cardName, string cardDescription) GetCardDetails()
         {
             _wait.Until<bool>(Driver => Driver.Title.Contains("Analytics"));
-            var cardName = Driver.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 h1")).Text.Trim();
-            var cardDescription = Driver.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 p")).Text.Trim();
+            var cardName = Driver.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 h1"), "card name").Text.Trim();
+            var cardDescription = Driver.FindElement(By.CssSelector("#page_content > div.ui.container.sidemargin0 p"), "card description").Text.Trim();
             return (cardName, cardDescription);
         }
     }

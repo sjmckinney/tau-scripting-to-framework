@@ -14,7 +14,7 @@ namespace Framework.Services
                     return new MirrorCard();
                 default:
                     throw new System.ArgumentException($"Unknown card type: {cardName}"); 
-            } 
+            }
         }
     }
 }
